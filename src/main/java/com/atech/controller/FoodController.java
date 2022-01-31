@@ -10,6 +10,7 @@ public class FoodController {
 
     @GetMapping({"", "/", "food-list", "food-list.html"})
     public String getFoodList(){
+        System.out.println("Devtools 22222");
 
         return "food/food-list";
     }
