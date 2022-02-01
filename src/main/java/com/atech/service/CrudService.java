@@ -1,14 +1,14 @@
 package com.atech.service;
 
-import com.atech.entity.Food;
+import com.atech.entity.Recipe;
 
 import java.util.List;
 
 public interface CrudService<T, ID> {
 
-    List<Food> findAll();
+    List<Recipe> findAll();
 
-    Food findById(int id);
+    Recipe findById(int id);
 
 
 }
