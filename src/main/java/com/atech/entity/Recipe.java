@@ -16,7 +16,6 @@ public class Recipe {
     private String source;
     private String url;
     private String directions;
-    // add difficulty
 
     @Lob // used to store object with characters above 255 character in the database
     private Byte[] image;
@@ -27,6 +26,16 @@ public class Recipe {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private List<Ingredient> ingredients;
 
+    @Enumerated(value = EnumType.STRING)
+    private Difficulty difficulty;
+
+    @ManyToMany
+    @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"),
+              inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<Category> categories;
+
+    
+    // Getters and Setters Implementations
     public int getId() {
         return id;
     }
@@ -113,5 +122,21 @@ public class Recipe {
 
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }
