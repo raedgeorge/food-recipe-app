@@ -4,6 +4,7 @@ import com.atech.entity.*;
 import com.atech.repositories.CategoryRepository;
 import com.atech.repositories.MeasureUnitRepository;
 import com.atech.repositories.RecipeRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 @Component
+@Slf4j
 public class DataLoader implements CommandLineRunner {
 
     private final RecipeRepository recipeRepository;
@@ -23,6 +25,8 @@ public class DataLoader implements CommandLineRunner {
                       CategoryRepository categoryRepository,
                       MeasureUnitRepository measureUnitRepository) {
 
+        log.info("inside the Bootstrap constructor");
+
         this.recipeRepository = recipeRepository;
         this.categoryRepository = categoryRepository;
         this.measureUnitRepository = measureUnitRepository;
@@ -30,6 +34,8 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+        log.info("Data loading started");
 
         Recipe guacamole = new Recipe();
         guacamole.setDescription("Perfect Guacamole");
@@ -50,7 +56,6 @@ public class DataLoader implements CommandLineRunner {
                        "add it just before serving");
 
         guacamole.setNotes(note);
-        note.setRecipe(guacamole);
 
         Ingredient avocado = new Ingredient();
         avocado.setRecipe(guacamole);
@@ -109,15 +114,17 @@ public class DataLoader implements CommandLineRunner {
         guacamole.getCategories().add(americanCategory.get());
         guacamole.getCategories().add(mexicanCategory.get());
 
-        guacamole.getIngredients().add(avocado);
-        guacamole.getIngredients().add(salt);
-        guacamole.getIngredients().add(lemon);
-        guacamole.getIngredients().add(onion);
-        guacamole.getIngredients().add(serrano);
-        guacamole.getIngredients().add(cilantro);
-        guacamole.getIngredients().add(pepper);
-        guacamole.getIngredients().add(tomato);
+        guacamole.addIngredient(avocado);
+        guacamole.addIngredient(salt);
+        guacamole.addIngredient(lemon);
+        guacamole.addIngredient(onion);
+        guacamole.addIngredient(serrano);
+        guacamole.addIngredient(cilantro);
+        guacamole.addIngredient(pepper);
+        guacamole.addIngredient(tomato);
 
         recipeRepository.save(guacamole);
+
+        log.info("Data Loading finished");
     }
 }

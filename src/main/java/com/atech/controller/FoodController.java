@@ -1,12 +1,14 @@
 package com.atech.controller;
 
 import com.atech.service.RecipeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@Slf4j
 @Controller
 @RequestMapping("/food")
 public class FoodController {
@@ -15,6 +17,7 @@ public class FoodController {
 
     @Autowired
     public FoodController(RecipeService recipeService) {
+        log.debug("Inside the Food Controller");
         this.recipeService = recipeService;
     }
 
@@ -22,6 +25,7 @@ public class FoodController {
     public String getFoodList(Model model){
 
         model.addAttribute("recipes", recipeService.findAll());
+        log.info("Inside the Get Mapping for Index Page");
 
         return "food/food-list";
     }
