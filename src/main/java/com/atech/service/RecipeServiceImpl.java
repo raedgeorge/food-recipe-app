@@ -27,7 +27,7 @@ public class RecipeServiceImpl implements RecipeService{
         log.debug("inside the recipe service impl");
         recipeRepository.findAll()
                 .iterator()
-                .forEachRemaining(recipe -> recipeList.add(recipe));
+                .forEachRemaining(recipeList::add);
 
         return recipeList;
     }
