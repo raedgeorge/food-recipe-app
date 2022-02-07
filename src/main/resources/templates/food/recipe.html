@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>recipe</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+
+    <script rcs="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"
+    ></script>
+
+</head>
+<body>
+
+<div class="p-5 mb-2 bg-primary text-white" style="margin-top: 30px">
+    <h1 th:text="${recipe.description}">Description</h1>
+</div>
+
+<div class="container" >
+Prep Time: <h5 class="text-left" th:text="${recipe.prepTime} + ' minutes'">Prep Time</h5>
+<hr>
+
+Cook Time: <h5 th:text="${recipe.cookTime} + ' minutes' ">Cook Time</h5>
+<hr>
+Servings: <h5 th:text="${recipe.servings} + ' Persons' ">Servings</h5>
+<hr>
+
+Source: <h5 th:text="${recipe.source}">Source</h5>
+<hr>
+
+Url Link: <h5 th:text="${recipe.url}">Address Link</h5>
+</div>
+
+<h2>Directions</h2>
+<h5 th:text="${recipe.directions}"></h5>
+<br>
+Difficulty: <h5 th:text="${recipe.difficulty}">Difficulty Level</h5>
+<br>
+Hint: <h4 th:text="${recipe.notes.notes}"></h4>
+<hr>
+
+<h2>Ingredients</h2>
+    <ol>
+        <li
+         th:each="ingredient : ${recipe.ingredients}"
+
+         th:text="${ingredient.getAmount()} +' '+ ${ingredient.measureUnit.unitOfMeasure}+
+          ' - '+ ${ingredient.description}">
+        </li>
+
+    </ol>
+
+<hr>
+<h2>Category</h2>
+
+<ol>
+    <li
+        th:each="category : ${recipe.categories}"
+
+        th:text="${category.getName()}">
+
+    </li>
+
+
+</ol>
+
+</body>
+</html>

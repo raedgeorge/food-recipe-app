@@ -85,7 +85,7 @@ public class DataLoader implements CommandLineRunner {
         serrano.setRecipe(guacamole);
         serrano.setDescription("chili's, stems and seeds removed, minced");
         serrano.setAmount(new BigDecimal("2"));
-        salt.setMeasureUnit(measureUnitRepository.findByUnitOfMeasure("serrano").get());
+        serrano.setMeasureUnit(measureUnitRepository.findByUnitOfMeasure("serrano").get());
 
 
         Ingredient cilantro = new Ingredient();
