@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>add recipe</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+
+    <script rcs="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"
+    ></script>
+
+</head>
+<body>
+<h1 th:text=" 'Add Recipe' " class="container">add recipe</h1>
+
+<form action="#" th:action="@{/food/saveRecipe}"
+     th:object="${recipe}" method="post">
+
+    <input type="hidden" th:field="*{id}">
+
+    Description: <br> <input type="text" th:field="*{description}" class="form-control">
+
+    <br><br>
+
+    Prep Time: <input type="text" th:field="*{prepTime}">
+
+    <br><br>
+
+    Cook Time: <input type="text" th:field="*{cookTime}">
+
+    <br><br>
+
+    Servings: <select th:field="*{servings}">
+                    <option value=1 >1</option>
+                    <option value=2 >2</option>
+                    <option value=3 >3</option>
+                    <option value=4 >4</option>
+              </select>
+
+    <br><br>
+
+    Source: <input type="text" th:field="*{source}">
+
+    <br><br>
+
+    Url Link: <input type="url" th:field="*{url}" class="form-control">
+
+    <br><br>
+
+    Directions: <input type="text" th:field="*{directions}" class="form-control">
+
+    <br><br>
+
+    Difficulty: <br><br>
+    <input type="radio" th:field="*{difficulty}" value="EASY">EASY</input> <br>
+    <input type="radio" th:field="*{difficulty}" value="MODERATE">MODERATE</input> <br>
+    <input type="radio" th:field="*{difficulty}" value="HARD">HARD</input>
+
+    <br><br>
+
+    Notes: <input type="text" th:field="*{notes.notes}" class="form-control">
+
+    <br><br>
+
+    <input type="submit" value="Submit" class="btn-primary
+           btn btn-primary col-md-1 col-md-offset-1 " >
+
+
+</form>
+
+</body>
+</html>

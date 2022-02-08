@@ -1,13 +1,12 @@
 package com.atech.controller;
 
+import com.atech.commands.RecipeCommand;
 import com.atech.service.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -38,6 +37,40 @@ public class FoodController {
         model.addAttribute("recipe", recipeService.findById(id));
 
         return "food/recipe";
+    }
+
+    @GetMapping("/addRecipe")
+    public String addRecipe(Model model){
+
+        model.addAttribute("recipe", new RecipeCommand());
+
+        return "food/recipeForm";
+    }
+
+    @PostMapping("/saveRecipe")
+    public String saveRecipe(@ModelAttribute("recipe") RecipeCommand recipeCommand){
+
+        RecipeCommand savedCommand = recipeService.saveRecipeCommand(recipeCommand);
+
+        return "redirect:/food/recipe/" + savedCommand.getId();
+    }
+
+    @GetMapping("/update/{id}")
+    public String updateRecipe(Model model,
+                               @PathVariable("id") int id){
+
+        model.addAttribute("recipe", recipeService.findCommandById(id));
+
+        return "food/recipeForm";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteRecipe(@PathVariable("id") int id){
+
+        log.debug("inside delete HTTP");
+        recipeService.delete(id);
+
+        return "redirect:/food/food-list";
     }
 
 }

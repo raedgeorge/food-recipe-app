@@ -1,5 +1,7 @@
 package com.atech.service;
 
+import com.atech.converters.RecipeCommandToRecipe;
+import com.atech.converters.RecipeToRecipeCommand;
 import com.atech.entity.Recipe;
 import com.atech.repositories.RecipeRepository;
 import org.junit.Before;
@@ -24,7 +26,9 @@ public class RecipeServiceImplTest {
     public void setUp() throws Exception {
 
         MockitoAnnotations.openMocks(this);
-        recipeService  =new RecipeServiceImpl(recipeRepository);
+        RecipeCommandToRecipe recipeCommandToRecipe = null;
+        RecipeToRecipeCommand recipeToRecipeCommand = null;
+        recipeService  =new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
