@@ -39,25 +39,35 @@ Source: <h5 th:text="${recipe.source}">Source</h5>
 Url Link: <h5 th:text="${recipe.url}">Address Link</h5>
 </div>
 
-<div class="col-ml-2">
+<div>
 <h2>Directions</h2>
 <h5 th:text="${recipe.directions}"></h5>
 </div>
+
 Difficulty: <h5 th:text="${recipe.difficulty}">Difficulty Level</h5>
 <br>
 Hint: <h4 th:text="${recipe.notes.notes}"></h4>
 <hr>
+
+<div style="background-color: lightskyblue">
+
+    <a href="#" th:href="@{'/recipe/' + ${recipe.id} +'/ingredients' }"
+       class="btn btn-primary"
+       style=" position:relative ;top:70%; left: 50%;" >View</a>
 
 <h2>Ingredients</h2>
     <ol>
         <li
          th:each="ingredient : ${recipe.ingredients}"
 
-         th:text="${ingredient.getAmount()} +' '+ ${ingredient.measureUnit.unitOfMeasure}+
-          ' - '+ ${ingredient.description}">
+         th:text="${ingredient.getAmount()} +' '+
+                  ${ingredient.measureUnit.unitOfMeasure}+' - '+
+                  ${ingredient.description}">
         </li>
 
     </ol>
+
+</div>
 
 <hr>
 <h2>Category</h2>
@@ -67,10 +77,7 @@ Hint: <h4 th:text="${recipe.notes.notes}"></h4>
         th:each="category : ${recipe.categories}"
 
         th:text="${category.getName()}">
-
     </li>
-
-
 </ol>
 
 </body>

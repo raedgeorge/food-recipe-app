@@ -21,7 +21,7 @@ public class MeasureUnitToMeasureUnitCommand implements Converter<MeasureUnit, M
 
         final MeasureUnitCommand measureUnitCommand = new MeasureUnitCommand();
         measureUnitCommand.setId(measureUnitCommand.getId());
-        measureUnitCommand.setUnitOfMeasure(source.getUnitOfMeasure());
+        measureUnitCommand.setDescription(source.getUnitOfMeasure());
         return measureUnitCommand;
     }
 }

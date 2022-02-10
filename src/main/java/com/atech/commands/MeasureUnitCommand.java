@@ -10,5 +10,5 @@ import lombok.Setter;
 public class MeasureUnitCommand {
 
     private int id;
-    private String unitOfMeasure;
+    private String description;
 }

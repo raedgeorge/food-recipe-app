@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<div class="container-fluid" style="margin-top: 20px; margin-left: 150px; width:300%">
+<div class="container-fluid" style="margin-top: 20px; margin-left: 300px; width:300%">
     <div class="row">
         <div class="col-md-2 col-md-offset-0">
             <div class="panel panel-primary">
@@ -51,7 +51,7 @@
             <td th:text="${recipe.description}">description</td>
             <td th:text="${recipe.prepTime} + ' min' ">2500</td>
             <td>
-                <a href="#" th:href="@{ '/food/recipe/' + ${recipe.id} }" class="btn btn-info">
+                <a href="#" th:href="@{ '/food/' + ${recipe.id} + '/recipe' }" class="btn btn-info">
                 View</a>
             </td>
 
@@ -77,8 +77,9 @@
     </div>
 </div>
 
-<input type="button" value="Add Recipe" class="btn btn-primary col-md-1 col-md-offset-4"
-       th:onclick="|window.location.href='/food/addRecipe'|">
+<input type="button" value="Add Recipe"
+       th:onclick="|window.location.href='/food/addRecipe'|"
+       class="btn btn-primary col-md-1 col-md-offset-4">
 
 </body>
 </html>

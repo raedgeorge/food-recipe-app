@@ -10,20 +10,35 @@ import org.springframework.stereotype.Component;
 @Component
 public class IngredientToIngredientCommand implements Converter<Ingredient, IngredientCommand> {
 
+    private final MeasureUnitToMeasureUnitCommand command;
+    private final MeasureUnitCommandToMeasureUnit measureUnitCommandToMeasureUnit;
+
+    public IngredientToIngredientCommand(MeasureUnitToMeasureUnitCommand measureUnitToMeasureUnitCommand, MeasureUnitCommandToMeasureUnit measureUnitCommandToMeasureUnit) {
+        this.command = measureUnitToMeasureUnitCommand;
+        this.measureUnitCommandToMeasureUnit = measureUnitCommandToMeasureUnit;
+    }
+
     @Synchronized
     @Nullable
     @Override
-    public IngredientCommand convert(Ingredient source) {
+    public IngredientCommand convert(Ingredient ingredient) {
 
-        if(source == null) {
+        if(ingredient == null) {
             return null;
         }
 
         final IngredientCommand ingredientCommand = new IngredientCommand();
-        ingredientCommand.setId(source.getId());
-        ingredientCommand.setAmount(source.getAmount());
-        ingredientCommand.setDescription(source.getDescription());
-        ingredientCommand.setMeasureUnit(source.getMeasureUnit());
+
+        ingredientCommand.setId(ingredient.getId());
+
+        if (ingredient.getRecipe() != null){
+            ingredientCommand.setRecipeId(ingredient.getRecipe().getId());
+        }
+
+        ingredientCommand.setAmount(ingredient.getAmount());
+        ingredientCommand.setDescription(ingredient.getDescription());
+        ingredientCommand.setMeasureUnit(ingredient.getMeasureUnit());
+
         return ingredientCommand;
     }
 }

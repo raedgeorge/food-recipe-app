@@ -19,60 +19,110 @@
 
 </head>
 <body>
-<h1 th:text=" 'Add Recipe' " class="container">add recipe</h1>
+
+<div class="head" style="background-color:lightskyblue ; height: 80px; margin-left: 1cm;">
+    <h1 th:text=" 'Add Recipe' " style="text-align: center;">Recipe Form</h1>
+</div>
+
+<img th:src="@{/images/recipes2.jpg}" alt="recipe image" style="float:right; width: 900px; height: 950px;
+             margin-top: 0.5cm; margin-right: 1cm">
 
 <form action="#" th:action="@{/food/saveRecipe}"
-     th:object="${recipe}" method="post">
+      th:object="${recipe}" method="post">
 
     <input type="hidden" th:field="*{id}">
 
-    Description: <br> <input type="text" th:field="*{description}" class="form-control">
+    <div>
+        <br>
+        <p
+        style="font-size: large; font-weight: bold; width: fit-content; margin-left: 1cm;"
+        >Description</p>
 
-    <br><br>
+        <textarea  th:field="*{description}" rows="4" cols="100"
+                   style="resize:none; border-radius: 8px; margin-left: 1cm; border-color: lightskyblue;
+                   border-top-style: groove;">
+    </textarea>
 
-    Prep Time: <input type="text" th:field="*{prepTime}">
 
-    <br><br>
+        <div style="border-radius: 8px;width: 19.7cm  ;background-color: lightskyblue;  margin-top: 0cm;
+             margin-left: 1cm;">
+            <h2> Details </h2>
 
-    Cook Time: <input type="text" th:field="*{cookTime}">
+            Preparation Time <input type="text" th:field="*{prepTime}" style="margin-left: 0.5cm;">
 
-    <br><br>
+            <br><br>
 
-    Servings: <select th:field="*{servings}">
-                    <option value=1 >1</option>
-                    <option value=2 >2</option>
-                    <option value=3 >3</option>
-                    <option value=4 >4</option>
-              </select>
+            Cooking Time <input type="text" th:field="*{cookTime}" style="margin-left: 1.05cm;">
 
-    <br><br>
+            <br><br>
 
-    Source: <input type="text" th:field="*{source}">
+            Servings <select th:field="*{servings}" style="margin-left: 1.9cm; width: 2cm; height: 0.6cm;">
+            <option value=1 >1</option>
+            <option value=2 >2</option>
+            <option value=3 >3</option>
+            <option value=4 >4</option>
+        </select> * Note: Persons to be served
 
-    <br><br>
+            <br><br>
 
-    Url Link: <input type="url" th:field="*{url}" class="form-control">
+            <p Source style="position: absolute; left: 7cm; margin-top: -3.5cm;">
+                <input type="text" th:field="*{source}" style="position: relative; left: 7cm; margin-top: -1.5cm;" >
+                Source</p>
 
-    <br><br>
+            Url Link <input type="url" th:field="*{url}" style="border-radius: 8px; width: 14.5cm; margin-top: 0.5cm;
+            margin-left: 1.9cm; margin-bottom: 00.5cm;">
 
-    Directions: <input type="text" th:field="*{directions}" class="form-control">
+        </div>
+    </div>
 
-    <br><br>
+    <div style="margin-left: 1cm; margin-top: 1cm;width: 19.7cm  ;">
 
-    Difficulty: <br><br>
-    <input type="radio" th:field="*{difficulty}" value="EASY">EASY</input> <br>
-    <input type="radio" th:field="*{difficulty}" value="MODERATE">MODERATE</input> <br>
-    <input type="radio" th:field="*{difficulty}" value="HARD">HARD</input>
+        <h2 >Directions</h2>
 
-    <br><br>
+        <textarea th:field="*{directions}" rows="9" cols="100" style="resize: none;border-color: lightskyblue;
+                        border-top-style: groove;
+                        border-radius: 8px ">
+        </textarea>
 
-    Notes: <input type="text" th:field="*{notes.notes}" class="form-control">
+    </div>
 
-    <br><br>
+    <div style="background-color: lightskyblue;width: 19.7cm  ; margin-left: 1cm; margin-top: 1cm;
+         border-radius: 8px">
 
-    <input type="submit" value="Submit" class="btn-primary
-           btn btn-primary col-md-1 col-md-offset-1 " >
+        <h2 >Difficulty Level</h2>
+        <input style="margin-left: 1cm;" type="radio" th:field="*{difficulty}" value="EASY">EASY</input> <br>
+        <input style="margin-left: 1cm;" type="radio" th:field="*{difficulty}" value="MODERATE">MODERATE</input> <br>
+        <input style="margin-left: 1cm;" type="radio" th:field="*{difficulty}" value="HARD">HARD</input>
 
+        <br><br>
+
+    </div>
+
+    <div style="width: 19.7cm  ;background-color: lightskyblue; margin-left: 1cm; margin-top: 1cm;
+         border-radius: 8px">
+
+        <h2 >Notes</h2>
+        <input type="text" th:field="*{notes.notes}" class="form-control" style="height: 2cm
+    ;">
+
+    </div>
+
+
+    <div style="height: 2.5cm;width: 19.7cm  ;">
+
+        <input type="submit" value="Submit" class="btn-primary
+           btn btn-primary col-md-1 col-md-offset-1" style="margin-left: 18cm;
+           width: 4cm;font-weight: bold;
+           font-family:'Times New Roman', Times, serif;
+           font-size: 18px; border-radius: 16px; margin-top: 00.5cm;" >
+
+        <a href="#" th:href="@{/food/}" class="btn btn-danger"
+           style="margin-left: 24cm;
+           width: 4cm;font-weight: bold;
+           font-family:'Times New Roman', Times, serif;
+           font-size: 18px; border-radius: 16px; margin-top: -1.6cm;">Cancel</a>
+
+    </div>
 
 </form>
 

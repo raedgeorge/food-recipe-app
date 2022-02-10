@@ -21,7 +21,7 @@ public class FoodController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping({"", "/", "food-list", "food-list.html"})
+    @GetMapping({"", "/", "/food-list", "/food-list.html"})
     public String getFoodList(Model model){
 
         model.addAttribute("recipes", recipeService.findAll());
@@ -30,7 +30,7 @@ public class FoodController {
         return "food/food-list";
     }
 
-    @GetMapping("/recipe/{id}")
+    @GetMapping("/{id}/recipe")
     public String recipe(@PathVariable("id") int id,
                          Model model){
 
@@ -52,7 +52,7 @@ public class FoodController {
 
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(recipeCommand);
 
-        return "redirect:/food/recipe/" + savedCommand.getId();
+        return "redirect:/food/"+savedCommand.getId()+"/recipe/" ;
     }
 
     @GetMapping("/update/{id}")
@@ -68,7 +68,7 @@ public class FoodController {
     public String deleteRecipe(@PathVariable("id") int id){
 
         log.debug("inside delete HTTP");
-        recipeService.delete(id);
+        recipeService.deleteById(id);
 
         return "redirect:/food/food-list";
     }

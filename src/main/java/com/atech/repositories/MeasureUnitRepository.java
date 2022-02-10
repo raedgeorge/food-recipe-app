@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface MeasureUnitRepository extends CrudRepository<MeasureUnit, Integer> {
 
     Optional<MeasureUnit> findByUnitOfMeasure(String unitMeasure);
+
 }
