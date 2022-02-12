@@ -162,6 +162,7 @@ public class IngredientServiceImpl implements IngredientService {
         else {
 
             Ingredient ingredient = ingredientOptional.get();
+            ingredient.setRecipe(null);
 
             Optional<Recipe> optionalRecipe = recipeRepository.findById(recipeId);
 
