@@ -47,7 +47,7 @@
 
                 <td th:text= "${ingredient.id}"></td>
                 <td th:text=" ${ingredient.amount} +' '+
-                              ${ingredient.measureUnit.unitOfMeasure}+ ' ' +
+                              ${ingredient.getMeasureUnitCommand.description}+ ' ' +
                               ${ingredient.description}"
                 ></td>
 
@@ -75,6 +75,12 @@
             </tr>
         </tbody>
     </table>
+
+                    <a href="#"
+                       th:href="@{'/recipe/' + ${recipeId} +'/addIngredient'}"
+                       class="btn bg-success" style="margin-left: 40px">
+                    Add Ingredient</a>
+
                 </div>
             </div>
         </div>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Ingredient</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+
+    <script rcs="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"
+    ></script>
+
+    <style>
+
+        .field{
+            width: 15cm;
+        }
+
+    </style>
+
+
+</head>
+<body>
+<form action="#"
+      th:action="@{'/recipe/' + ${recipeId} +'/ingredient'}"
+      th:object="${ingredient}"
+      method="post">
+
+<div class="container" style="background-color: deepskyblue;
+                       margin-top: 2cm; height: 200px;
+                       padding: 12px; border-radius: 10px">
+
+    <label th:label="Description">Description</label>
+    <input type="text" th:field="*{description}" class="field">
+
+    <br><br>
+
+    <label th:label="Amount">Amount</label>
+    <input type="number" th:field="*{amount}" style="margin-left: 0.6cm">
+
+    <br><br>
+
+    <label th:label="UOM">UOM</label>
+    <select th:field="*{measureUnitCommand.description}" style="margin-left: 1.1cm">
+        <option th:each="uomItem : ${uom}"
+                th:value="${uomItem.description}"
+                th:text="${uomItem.description}"
+                th:selected="${uomItem.description.equals(ingredient.measureUnitCommand.description)}"
+        >Each</option>
+    </select>
+    <br><br>
+    <input type="submit" value="Submit" class="btn btn-primary" style="margin-left: 2cm">
+
+</div>
+</form>
+
+
+</body>
+</html>

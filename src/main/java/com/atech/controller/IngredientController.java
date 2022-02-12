@@ -1,6 +1,7 @@
 package com.atech.controller;
 
 import com.atech.commands.IngredientCommand;
+import com.atech.commands.MeasureUnitCommand;
 import com.atech.commands.RecipeCommand;
 import com.atech.service.IngredientService;
 import com.atech.service.RecipeService;
@@ -65,10 +66,8 @@ public class IngredientController {
             Model model, Model model2){
 
         IngredientCommand ingredientCommand = ingredientService.findByRecipeIdAndIngredientId(recipeId, ingredientId);
-        model.addAttribute("ingredient", ingredientCommand);
 
-        unitOfMeasureService.listAllUoms().forEach(uom -> log.info(uom.getDescription()));
-        unitOfMeasureService.listAllUoms().forEach(id -> log.info("ID: " + id.getId()));
+        model.addAttribute("ingredient", ingredientCommand);
 
         model2.addAttribute("uom", unitOfMeasureService.listAllUoms());
 
@@ -76,19 +75,49 @@ public class IngredientController {
     }
 
     @PostMapping("/recipe/{recipeId}/ingredient")
-    public String saveIngredient(@ModelAttribute("ingredient") IngredientCommand ingredientCommand){
+    public String saveIngredient(
+            @ModelAttribute("ingredient") IngredientCommand ingredientCommand){
 
-        log.debug("INSIDE THE SAVE METHOD");
-
-        log.debug("INGREDIENT DATA " +ingredientCommand.getId() + " " + ingredientCommand.getRecipeId()
-        + " " + ingredientCommand.getDescription());
-
-        log.debug("DESCRIPTION >>> " + ingredientCommand.getDescription());
-        log.debug("MEASURE UNIT >>> " + ingredientCommand.getMeasureUnit().getUnitOfMeasure());
+        log.debug("INSIDE THE SAVE OR UPDATE METHOD");
+//        log.debug("INGREDIENT DATA " +ingredientCommand.getId() + " " + ingredientCommand.getRecipeId()
+//        + " " + ingredientCommand.getDescription());
+//
+//        log.debug("DESCRIPTION >>> " + ingredientCommand.getDescription());
+//        log.debug("Measure Unit ID >>> " + ingredientCommand.getMeasureUnitCommand().getId());
+//        log.debug("Selected MEASURE UNIT >>> " + ingredientCommand.getMeasureUnitCommand().getDescription());
 
         IngredientCommand savedCommand = ingredientService.saveIngredientCommand(ingredientCommand);
 
         return "redirect:/recipe/"+savedCommand.getRecipeId()+"/ingredient/"+savedCommand.getId()+"/show";
 
+    }
+
+    @GetMapping("recipe/{recipeId}/addIngredient")
+    public String addIngredient(
+            @PathVariable("recipeId") int recipeId,
+            Model model1,
+            Model model2){
+
+        RecipeCommand recipeCommand = recipeService.findCommandById(recipeId);
+        log.debug("Recipe Check: " + recipeCommand.getDescription());
+
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(recipeId);
+        ingredientCommand.setMeasureUnitCommand(new MeasureUnitCommand());
+
+        model1.addAttribute("ingredient", ingredientCommand);
+        model2.addAttribute("uom", unitOfMeasureService.listAllUoms());
+        log.debug("INSIDE ADD NEW INGREDIENT >>> RECIPE ID = " + recipeId);
+        return "/ingredients/addIngredientForm";
+    }
+
+    @GetMapping("/recipe/{recipeId}/ingredient/{ingredientId}/delete")
+    public String deleteIngredient(
+            @PathVariable("recipeId") int recipeId,
+            @PathVariable("ingredientId") int ingredientId){
+
+        ingredientService.deleteIngredient(recipeId, ingredientId);
+
+        return "redirect:/recipe/{recipeId}/ingredients";
     }
 }

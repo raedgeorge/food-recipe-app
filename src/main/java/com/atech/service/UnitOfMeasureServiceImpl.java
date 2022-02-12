@@ -2,8 +2,10 @@ package com.atech.service;
 
 import com.atech.commands.MeasureUnitCommand;
 import com.atech.converters.MeasureUnitToMeasureUnitCommand;
+import com.atech.entity.MeasureUnit;
 import com.atech.repositories.MeasureUnitRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,9 +24,18 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
     }
 
     @Override
+    @Transactional
     public List<MeasureUnitCommand> listAllUoms() {
         return StreamSupport.stream(measureUnitRepository.findAll().spliterator(), false)
                 .map(measureUnitToMeasureUnitCommand::convert)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    @Transactional
+    public void save(MeasureUnit measureUnit) {
+
+        measureUnitRepository.save(measureUnit);
+    }
+
 }

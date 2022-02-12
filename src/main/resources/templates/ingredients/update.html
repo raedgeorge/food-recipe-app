@@ -44,10 +44,10 @@
 
     <h3 th:text=" 'Unit Measure' ">unit measure</h3>
 
-    <select  name="measureUnit.id">
+    <select  th:field="*{measureUnitCommand.description}">
         <option th:each="uomEach : ${uom}"
-                th:value="${uomEach.id}"
-                th:selected="${uomEach.id==ingredient.measureUnit.id}"
+                th:value="${uomEach.description}"
+                th:selected="${uomEach.description.equals(ingredient.measureUnitCommand.description)}"
                 th:text="${uomEach.description}">Each</option>
     </select>
 

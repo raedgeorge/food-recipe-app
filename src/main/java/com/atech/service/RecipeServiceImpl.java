@@ -32,6 +32,7 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     @Override
+    @Transactional
     public List<Recipe> findAll() {
 
         List<Recipe> recipeList = new ArrayList<>();
@@ -44,6 +45,7 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     @Override
+    @Transactional
     public Recipe findById(int id) {
         return recipeRepository.findById(id).orElse(null);
     }
@@ -60,6 +62,7 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     @Override
+    @Transactional
     public RecipeCommand findCommandById(int id) {
 
         Recipe recipe = recipeRepository.findById(id).orElse(null);
@@ -68,6 +71,7 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     @Override
+    @Transactional
     public void deleteById(int id) {
         recipeRepository.deleteById(id);
     }

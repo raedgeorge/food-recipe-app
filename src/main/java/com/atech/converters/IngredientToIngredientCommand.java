@@ -3,19 +3,20 @@ package com.atech.converters;
 import com.atech.commands.IngredientCommand;
 import com.atech.entity.Ingredient;
 import lombok.Synchronized;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class IngredientToIngredientCommand implements Converter<Ingredient, IngredientCommand> {
 
     private final MeasureUnitToMeasureUnitCommand command;
-    private final MeasureUnitCommandToMeasureUnit measureUnitCommandToMeasureUnit;
 
-    public IngredientToIngredientCommand(MeasureUnitToMeasureUnitCommand measureUnitToMeasureUnitCommand, MeasureUnitCommandToMeasureUnit measureUnitCommandToMeasureUnit) {
+    public IngredientToIngredientCommand(
+            MeasureUnitToMeasureUnitCommand measureUnitToMeasureUnitCommand) {
         this.command = measureUnitToMeasureUnitCommand;
-        this.measureUnitCommandToMeasureUnit = measureUnitCommandToMeasureUnit;
     }
 
     @Synchronized
@@ -34,10 +35,11 @@ public class IngredientToIngredientCommand implements Converter<Ingredient, Ingr
         if (ingredient.getRecipe() != null){
             ingredientCommand.setRecipeId(ingredient.getRecipe().getId());
         }
-
         ingredientCommand.setAmount(ingredient.getAmount());
         ingredientCommand.setDescription(ingredient.getDescription());
-        ingredientCommand.setMeasureUnit(ingredient.getMeasureUnit());
+    // log.debug("before ingredient command setting measure unit");
+    // ingredientCommand.setMeasureUnit(ingredient.getMeasureUnit());
+        ingredientCommand.setMeasureUnitCommand(command.convert(ingredient.getMeasureUnit()));
 
         return ingredientCommand;
     }

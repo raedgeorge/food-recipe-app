@@ -3,7 +3,6 @@ package com.atech.converters;
 import com.atech.commands.IngredientCommand;
 import com.atech.entity.Ingredient;
 import com.atech.entity.Recipe;
-import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -12,14 +11,11 @@ import org.springframework.stereotype.Component;
 public class IngredientCommandToIngredient implements Converter<IngredientCommand, Ingredient> {
 
     private final MeasureUnitCommandToMeasureUnit command;
-    private final MeasureUnitToMeasureUnitCommand measureUnitToMeasureUnitCommand;
 
-    public IngredientCommandToIngredient(MeasureUnitCommandToMeasureUnit command, MeasureUnitToMeasureUnitCommand measureUnitToMeasureUnitCommand) {
+    public IngredientCommandToIngredient(MeasureUnitCommandToMeasureUnit command) {
         this.command = command;
-        this.measureUnitToMeasureUnitCommand = measureUnitToMeasureUnitCommand;
     }
 
-    @Synchronized
     @Nullable
     @Override
     public Ingredient convert(IngredientCommand source) {
@@ -42,7 +38,7 @@ public class IngredientCommandToIngredient implements Converter<IngredientComman
             ingredient.setDescription(source.getDescription());
             ingredient.setAmount(source.getAmount());
 
-            ingredient.setMeasureUnit(source.getMeasureUnit());
+            ingredient.setMeasureUnit(command.convert(source.getMeasureUnitCommand()));
 
         return ingredient;
     }

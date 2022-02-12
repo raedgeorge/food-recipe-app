@@ -1,14 +1,13 @@
 package com.atech.commands;
 
-import com.atech.entity.MeasureUnit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 public class IngredientCommand {
 
@@ -16,6 +15,6 @@ public class IngredientCommand {
     private int recipeId;
     private String description;
     private BigDecimal amount;
-    private MeasureUnit measureUnit;
+    private MeasureUnitCommand measureUnitCommand;
 
 }
