@@ -86,15 +86,16 @@
 
     </div>
 
-    <div style="background-color: lightskyblue;width: 19.7cm  ; margin-left: 1cm; margin-top: 1cm;
-         border-radius: 8px">
+    <div CLASS="container" style="background-color: lightskyblue;width: 19.7cm  ; margin-left: 1cm; margin-top: 1cm;
+         border-radius: 8px; padding: 10px">
 
-        <h2 >Difficulty Level</h2>
-        <input style="margin-left: 1cm;" type="radio" th:field="*{difficulty}" value="EASY">EASY</input> <br>
-        <input style="margin-left: 1cm;" type="radio" th:field="*{difficulty}" value="MODERATE">MODERATE</input> <br>
-        <input style="margin-left: 1cm;" type="radio" th:field="*{difficulty}" value="HARD">HARD</input>
-
-        <br><br>
+    <label th:label="Difficulty">Difficulty</label>
+        <select th:field="*{difficulty}" style="margin-left: 1cm">
+            <option th:each="level : ${T(com.atech.entity.Difficulty).values()}"
+                    th:value="${level.name()}"
+                    th:text="${level.name()}">
+            Value</option>
+        </select>
 
     </div>
 
