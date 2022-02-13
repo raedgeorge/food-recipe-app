@@ -20,40 +20,112 @@
 </head>
 <body>
 
-<div class="p-5 mb-2 bg-primary text-white" style="margin-top: 30px">
+<div class="container" style="margin-top: 10px; padding: 10px; background-color: lightskyblue; border-radius: 10px">
+
     <h1 th:text="${recipe.description}">Description</h1>
+
+    <a href="#"
+       th:href="@{'/recipe/'+ ${recipe.id}+ '/image'}"
+       class="btn btn-primary" role="button"
+       style="margin-left: 400px; margin-top: -70px"
+       >Change Image</a>
+
+
+    <div class="container" style="background-color: white; padding: 10px">
+
+
+            <img src="../images/guacamole.jpg"
+                 alt="image"
+                 th:src="@{'/recipe/'+ ${recipe.id} +'/recipeImage'}" width="250" height="250"
+                 style="position: relative; left: 60%">
+
+
+        <div style="background-color: white; padding: 1px; border-radius: 1px; width:9cm">
+            <div class="row">
+
+                <div class="col-md-4" style="margin-top: 8px">
+                    <label th:label=" 'Prep Time: ' ">Prep Time:</label>
+                </div>
+
+                <div class="col-md-4" >
+                   <h6  th:text="${recipe.prepTime} + ' minutes'">Prep Time</h6>
+               </div>
+
+            </div>
+        </div>
+
+    <div style="background-color: white; padding: 1px; border-radius: 1px; width:9cm; margin-top: 0.5cm">
+        <div class="row">
+
+            <div class="col-md-4" style="margin-top: 8px">
+                <label th:label=" 'Cook Time: ' ">Cook Time:</label>
+            </div>
+
+            <div class="col-md-4" >
+                <h6  th:text="${recipe.cookTime} + ' minutes'">Cook Time</h6>
+            </div>
+
+        </div>
+    </div>
+
+    <div style="background-color: white; padding: 1px; border-radius: 1px; width:9cm; margin-top: 0.5cm">
+        <div class="row">
+
+            <div class="col-md-4" style="margin-top: 8px">
+                <label th:label=" 'Servings: ' ">Servings:</label>
+            </div>
+
+            <div class="col-md-4" >
+                <h6  th:text="${recipe.servings} + ' persons'">Cook Time</h6>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div style="background-color: white; padding: 1px; border-radius: 1px; width:9cm; margin-top: 0.5cm">
+        <div class="row">
+
+            <div class="col-md-4" style="margin-top: 8px">
+                <label th:label=" 'Source: ' ">Source:</label>
+            </div>
+
+            <div class="col-md-4" >
+                <h6  th:text="${recipe.source}">Sources</h6>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div style="background-color: white; padding: 1px; border-radius: 1px; width:13cm; margin-top: 0.5cm">
+        <div class="row">
+
+            <div class="col-md-2" style="margin-top: 8px">
+                <label th:label=" 'Link: ' ">Link:</label>
+            </div>
+
+            <div class="col-md-4" >
+                <h6  th:text="${recipe.url}">Url Link</h6>
+            </div>
+
+        </div>
+    </div>
 </div>
 
-<div class="container" >
-Prep Time: <h5 class="text-left" th:text="${recipe.prepTime} + ' minutes'">Prep Time</h5>
-<hr>
-
-Cook Time: <h5 th:text="${recipe.cookTime} + ' minutes' ">Cook Time</h5>
-<hr>
-Servings: <h5 th:text="${recipe.servings} + ' Persons' ">Servings</h5>
-<hr>
-
-Source: <h5 th:text="${recipe.source}">Source</h5>
-<hr>
-
-Url Link: <h5 th:text="${recipe.url}">Address Link</h5>
-</div>
-
-<div>
+<div class="container" style="background-color: lightskyblue; margin-top: 15px; border-radius: 10px">
 <h2>Directions</h2>
 <h5 th:text="${recipe.directions}"></h5>
 </div>
 
+<div class="container" style="background-color: lightskyblue; border-radius: 10px; margin-top: 15px; padding: 2px">
 Difficulty: <h5 th:text="${recipe.difficulty}">Difficulty Level</h5>
 <br>
 Hint: <h4 th:text="${recipe.notes.notes}"></h4>
-<hr>
 
-<div style="background-color: lightskyblue">
+</div>
 
-    <a href="#" th:href="@{'/recipe/' + ${recipe.id} +'/ingredients' }"
-       class="btn btn-primary"
-       style=" position:relative ;top:70%; left: 50%;" >View</a>
+<div class="container" style="background-color: lightskyblue; margin-top: 15px; border-radius: 10px; padding: 10px">
 
 <h2>Ingredients</h2>
     <ol>
@@ -64,14 +136,15 @@ Hint: <h4 th:text="${recipe.notes.notes}"></h4>
                   ${ingredient.measureUnit.unitOfMeasure}+' - '+
                   ${ingredient.description}">
         </li>
-
     </ol>
 
+    <a href="#" th:href="@{'/recipe/' + ${recipe.id} +'/ingredients' }"
+       class="btn btn-primary"
+       style="margin-left: 0.6cm">View</a>
 </div>
 
-<hr>
-<h2>Category</h2>
-
+<div class="container" style="background-color: lightskyblue; padding: 2px; border-radius: 10px; margin-top: 15px">
+<h2 th:text=" 'Category' ">Category</h2>
 <ol>
     <li
         th:each="category : ${recipe.categories}"
@@ -79,6 +152,7 @@ Hint: <h4 th:text="${recipe.notes.notes}"></h4>
         th:text="${category.getName()}">
     </li>
 </ol>
-
+</div>
+</div>
 </body>
 </html>

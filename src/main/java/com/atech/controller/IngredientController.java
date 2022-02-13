@@ -25,7 +25,8 @@ public class IngredientController {
 
     @Autowired
     public IngredientController(RecipeService recipeService,
-                                IngredientService ingredientService, UnitOfMeasureService unitOfMeasureService) {
+                                IngredientService ingredientService,
+                                                 UnitOfMeasureService unitOfMeasureService) {
 
         this.recipeService = recipeService;
         this.ingredientService = ingredientService;

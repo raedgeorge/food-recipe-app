@@ -23,6 +23,8 @@ public class RecipeCommand {
     private String directions;
     private Difficulty difficulty;
 
+    private Byte[] image;
+
     private NotesCommand notes;
     private List<IngredientCommand> ingredients = new ArrayList<>();
     private List<CategoryCommand> categories = new ArrayList<>();

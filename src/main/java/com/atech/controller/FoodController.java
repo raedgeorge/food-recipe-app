@@ -69,7 +69,6 @@ public class FoodController {
 
         log.debug("inside delete HTTP");
         recipeService.deleteById(id);
-
         return "redirect:/food/food-list";
     }
 
