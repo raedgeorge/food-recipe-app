@@ -23,19 +23,27 @@ public class ImageServiceImpl implements ImageService{
 
     @Override
     @Transactional
-    public void saveImageFile(int recipeId, MultipartFile file) throws IOException {
+    public void saveImageFile(int recipeId, MultipartFile file) {
 
         Recipe recipe = recipeRepository.findById(recipeId).get();
 
-        Byte[] byteObjects = new Byte[file.getBytes().length];
-        int i = 0;
+        try {
+            Byte[] imageBytes = new Byte[file.getBytes().length];
 
-        for (byte imageByte : file.getBytes()){
-            byteObjects[i++] = imageByte;
+            int i = 0;
+            for (byte imageByte : file.getBytes()){
+                imageBytes[i++] = imageByte;
+            }
+
+            recipe.setImage(imageBytes);
+            recipeRepository.save(recipe);
+
+        }
+        catch (IOException e) {
+            System.out.println("File not found");
+            e.printStackTrace();
         }
 
-        recipe.setImage(byteObjects);
-        recipeRepository.save(recipe);
 
     }
 }

@@ -4,6 +4,7 @@ import com.atech.commands.RecipeCommand;
 import com.atech.converters.RecipeCommandToRecipe;
 import com.atech.converters.RecipeToRecipeCommand;
 import com.atech.entity.Recipe;
+import com.atech.exceptions.NotFoundException;
 import com.atech.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -47,7 +49,14 @@ public class RecipeServiceImpl implements RecipeService{
     @Override
     @Transactional
     public Recipe findById(int id) {
-        return recipeRepository.findById(id).orElse(null);
+
+        Optional<Recipe> recipe = recipeRepository.findById(id);
+
+        if (!recipe.isPresent()){
+            throw new NotFoundException("Recipe Not Found");
+        }
+
+        return recipe.get();
     }
 
     @Override

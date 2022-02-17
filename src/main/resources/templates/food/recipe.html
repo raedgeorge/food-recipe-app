@@ -25,20 +25,17 @@
     <h1 th:text="${recipe.description}">Description</h1>
 
     <a href="#"
-       th:href="@{'/recipe/'+ ${recipe.id}+ '/image'}"
-       class="btn btn-primary" role="button"
-       style="margin-left: 400px; margin-top: -70px"
-       >Change Image</a>
+       th:href="@{'/recipe/' + ${recipe.id} + '/image' }"
+       class="btn btn-primary"
+       style="margin-bottom: 10px"
+       role="button">
+    Change Image</a>
 
 
-    <div class="container" style="background-color: white; padding: 10px">
-
-
-            <img src="../images/guacamole.jpg"
-                 alt="image"
-                 th:src="@{'/recipe/'+ ${recipe.id} +'/recipeImage'}" width="250" height="250"
-                 style="position: relative; left: 60%">
-
+    <img src="../../static/images/guacamole.jpg"
+         th:src="@{'/recipe/' + ${recipe.id} + '/recipeImage'}"
+         style="margin-left: 10cm"
+         width="300" height="300">
 
         <div style="background-color: white; padding: 1px; border-radius: 1px; width:9cm">
             <div class="row">
@@ -143,7 +140,7 @@ Hint: <h4 th:text="${recipe.notes.notes}"></h4>
        style="margin-left: 0.6cm">View</a>
 </div>
 
-<div class="container" style="background-color: lightskyblue; padding: 2px; border-radius: 10px; margin-top: 15px">
+<div class="container" style="background-color: lightskyblue; padding: 2px; border-radius: 10px; margin-top: 15px; margin-bottom: 50px">
 <h2 th:text=" 'Category' ">Category</h2>
 <ol>
     <li
