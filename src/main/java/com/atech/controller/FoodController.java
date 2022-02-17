@@ -1,12 +1,15 @@
 package com.atech.controller;
 
 import com.atech.commands.RecipeCommand;
+import com.atech.exceptions.NotFoundException;
 import com.atech.service.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @Controller
@@ -31,12 +34,21 @@ public class FoodController {
     }
 
     @GetMapping("/{id}/recipe")
-    public String recipe(@PathVariable("id") int id,
+    public String recipe(@PathVariable("id") String id,
                          Model model){
 
-        model.addAttribute("recipe", recipeService.findById(id));
+//       try {
+//           model.addAttribute("recipe", recipeService.findById(Integer.parseInt(id)));
+//           return "food/recipe";
+//       }
+//       catch (NumberFormatException exception){
+//           throw new BadNumberException(
+//                   "value provided is bad. required int, provided a string, " + id);
+//       }
 
-        return "food/recipe";
+        model.addAttribute("recipe", recipeService.findById(Integer.parseInt(id)));
+           return "food/recipe";
+
     }
 
     @GetMapping("/addRecipe")
@@ -70,6 +82,30 @@ public class FoodController {
         log.debug("inside delete HTTP");
         recipeService.deleteById(id);
         return "redirect:/food/food-list";
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound(Exception exception){
+
+        log.debug("Handling not found exception");
+        log.error(exception.getMessage());
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("errors/404error");
+        modelAndView.addObject("exception", exception);
+        return modelAndView;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NumberFormatException.class)
+    public ModelAndView handleNumberFormatException(Exception exception){
+
+        log.debug("Inside handle number format exception");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("errors/400error");
+        modelAndView.addObject("exception", exception);
+
+        return modelAndView;
     }
 
 }

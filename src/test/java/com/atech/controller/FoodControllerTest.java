@@ -32,10 +32,22 @@ public class FoodControllerTest {
     @Mock
     Model model;
 
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
         foodController = new FoodController(recipeService);
+    }
+
+    @Test
+    public void testGetRecipeNumberFormatException() throws Exception{
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(foodController)
+                                          .build();
+
+        mockMvc.perform(get("/food/aa/recipe"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("errors/400error"));
     }
 
     @Test
