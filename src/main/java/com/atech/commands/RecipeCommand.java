@@ -39,7 +39,7 @@ public class RecipeCommand {
 
     private String source;
 
-    @URL
+    @URL(message = "PLEASE PROVIDE A VALID URL ADDRESS")
     @NotBlank
     private String url;
 

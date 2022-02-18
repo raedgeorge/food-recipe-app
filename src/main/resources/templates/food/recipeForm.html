@@ -21,7 +21,7 @@
 <body>
 
 <div class="head" style="background-color:lightskyblue ; height: 80px; margin-left: 1cm;">
-    <h1 th:text=" 'Add Recipe' " style="text-align: center;">Recipe Form</h1>
+    <h1 th:text=" 'Add Recipe' " style="text-align: center; padding: 12px">Recipe Form</h1>
 </div>
 
 <!--<img th:src="@{/images/recipes2.jpg}" alt="recipe image" style="float:right; width: 900px; height: 950px;-->
@@ -55,7 +55,7 @@
         </span>
 
         <div style="border-radius: 8px;width: 19.7cm  ;background-color: lightskyblue;  margin-top: 0cm;
-             margin-left: 1cm;">
+             margin-left: 1cm; padding: 12px">
             <h2> Details </h2>
 
             Preparation Time <input type="text" th:field="*{prepTime}" style="margin-left: 0.5cm;">
@@ -93,8 +93,15 @@
                 <input type="text" th:field="*{source}" style="position: relative; left: 7cm; margin-top: -1.5cm;" >
                 Source</p>
 
-            Url Link <input type="url" th:field="*{url}" style="border-radius: 8px; width: 14.5cm; margin-top: 0.5cm;
+            Url Link <input type="text" th:field="*{url}" style="border-radius: 8px; width: 14.5cm; margin-top: 0.5cm;
             margin-left: 1.9cm; margin-bottom: 00.5cm;">
+            <span class="help-block" th:if="${#fields.hasErrors('url')}">
+                <ul>
+                    <li th:each="err:${#fields.errors('url')}"
+                        th:text="${err}"></li>
+                </ul>
+
+            </span>
 
         </div>
     </div>
