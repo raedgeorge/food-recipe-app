@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Slf4j
 @Controller
@@ -17,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class FoodController {
 
     private final RecipeService recipeService;
+    private final String RECIPE_RECIPEFORM_URL = "food/recipeForm";
 
     @Autowired
     public FoodController(RecipeService recipeService) {
@@ -56,11 +60,17 @@ public class FoodController {
 
         model.addAttribute("recipe", new RecipeCommand());
 
-        return "food/recipeForm";
+        return RECIPE_RECIPEFORM_URL;
     }
 
     @PostMapping("/saveRecipe")
-    public String saveRecipe(@ModelAttribute("recipe") RecipeCommand recipeCommand){
+    public String saveRecipe(@Valid @ModelAttribute("recipe") RecipeCommand recipeCommand,
+                             BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()){
+            bindingResult.getAllErrors().forEach(objectError -> log.debug(objectError.toString()));
+            return RECIPE_RECIPEFORM_URL;
+        }
 
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(recipeCommand);
 
@@ -73,7 +83,7 @@ public class FoodController {
 
         model.addAttribute("recipe", recipeService.findCommandById(id));
 
-        return "food/recipeForm";
+        return RECIPE_RECIPEFORM_URL;
     }
 
     @GetMapping("/delete/{id}")
@@ -93,18 +103,6 @@ public class FoodController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("errors/404error");
         modelAndView.addObject("exception", exception);
-        return modelAndView;
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(NumberFormatException.class)
-    public ModelAndView handleNumberFormatException(Exception exception){
-
-        log.debug("Inside handle number format exception");
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("errors/400error");
-        modelAndView.addObject("exception", exception);
-
         return modelAndView;
     }
 

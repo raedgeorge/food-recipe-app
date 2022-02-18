@@ -43,6 +43,7 @@ public class FoodControllerTest {
     public void testGetRecipeNumberFormatException() throws Exception{
 
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(foodController)
+                .setControllerAdvice(new GlobalExceptionHandler())
                                           .build();
 
         mockMvc.perform(get("/food/aa/recipe"))
