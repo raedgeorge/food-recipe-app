@@ -11,7 +11,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -41,10 +40,10 @@ class ImageControllerTest {
     void imageUploadForm() throws Exception{
 
         RecipeCommand command = new RecipeCommand();
-        command.setId(1);
+        command.setId("1");
 
         when(recipeService
-                .findCommandById(anyInt())).thenReturn(command);
+                .findCommandById(anyString())).thenReturn(command);
 
 
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(imageController)
@@ -57,7 +56,7 @@ class ImageControllerTest {
                         name("/image/imageUploadForm"));
 
         verify(recipeService, times(1))
-                .findCommandById(anyInt());
+                .findCommandById(anyString());
     }
 
     @Test

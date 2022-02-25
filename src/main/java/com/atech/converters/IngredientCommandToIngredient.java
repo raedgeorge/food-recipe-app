@@ -4,7 +4,6 @@ import com.atech.commands.IngredientCommand;
 import com.atech.entity.Ingredient;
 import com.atech.entity.Recipe;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,7 +15,6 @@ public class IngredientCommandToIngredient implements Converter<IngredientComman
         this.command = command;
     }
 
-    @Nullable
     @Override
     public Ingredient convert(IngredientCommand source) {
 
@@ -28,7 +26,7 @@ public class IngredientCommandToIngredient implements Converter<IngredientComman
 
         ingredient.setId(source.getId());
 
-        if (source.getRecipeId() != 0) {
+        if (source.getRecipeId() != null) {
             Recipe recipe = new Recipe();
             recipe.setId(source.getRecipeId());
             ingredient.setRecipe(recipe);

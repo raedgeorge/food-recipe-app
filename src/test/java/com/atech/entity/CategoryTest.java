@@ -17,8 +17,8 @@ public class CategoryTest {
     @org.junit.Test
     public void getId() {
 
-        category.setId(5);
-        assertEquals(5, category.getId());
+        category.setId("5");
+        assertEquals(String.valueOf(5), category.getId());
     }
 
     @org.junit.Test

@@ -4,6 +4,7 @@ import com.atech.commands.RecipeCommand;
 import com.atech.exceptions.NotFoundException;
 import com.atech.service.RecipeService;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.codecs.pojo.IdGenerators;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Locale;
 
 @Slf4j
 @Controller
@@ -41,16 +43,9 @@ public class FoodController {
     public String recipe(@PathVariable("id") String id,
                          Model model){
 
-//       try {
-//           model.addAttribute("recipe", recipeService.findById(Integer.parseInt(id)));
-//           return "food/recipe";
-//       }
-//       catch (NumberFormatException exception){
-//           throw new BadNumberException(
-//                   "value provided is bad. required int, provided a string, " + id);
-//       }
-
-        model.addAttribute("recipe", recipeService.findById(Integer.parseInt(id)));
+        log.debug("ID >>>> : " +id);
+        log.debug(recipeService.findById(id).getDescription().toUpperCase(Locale.ROOT));
+        model.addAttribute("recipe", recipeService.findById(id));
            return "food/recipe";
 
     }
@@ -59,27 +54,33 @@ public class FoodController {
     public String addRecipe(Model model){
 
         model.addAttribute("recipe", new RecipeCommand());
+        log.debug("inside the add new recipe");
 
         return RECIPE_RECIPEFORM_URL;
     }
 
     @PostMapping("/saveRecipe")
     public String saveRecipe(@Valid @ModelAttribute("recipe") RecipeCommand recipeCommand,
+                             @RequestParam("id") String id,
                              BindingResult bindingResult){
 
+        if (id == "") {
+            recipeCommand.setId(IdGenerators.STRING_ID_GENERATOR.generate());
+        }
         if (bindingResult.hasErrors()){
             bindingResult.getAllErrors().forEach(objectError -> log.debug(objectError.toString()));
             return RECIPE_RECIPEFORM_URL;
         }
 
+        log.debug("INSIDE THE SAVE RECIPE MAPPING");
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(recipeCommand);
 
-        return "redirect:/food/"+savedCommand.getId()+"/recipe/" ;
+        return "redirect:/food/"+savedCommand.getId()+"/recipe" ;
     }
 
     @GetMapping("/update/{id}")
     public String updateRecipe(Model model,
-                               @PathVariable("id") int id){
+                               @PathVariable("id") String id){
 
         model.addAttribute("recipe", recipeService.findCommandById(id));
 
@@ -87,7 +88,7 @@ public class FoodController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteRecipe(@PathVariable("id") int id){
+    public String deleteRecipe(@PathVariable("id") String id){
 
         log.debug("inside delete HTTP");
         recipeService.deleteById(id);

@@ -2,12 +2,11 @@ package com.atech.service;
 
 import com.atech.commands.MeasureUnitCommand;
 import com.atech.entity.MeasureUnit;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
 
 public interface UnitOfMeasureService {
 
-    List<MeasureUnitCommand> listAllUoms();
+    Flux<MeasureUnitCommand> listAllUoms();
 
     void save(MeasureUnit measureUnit);
 }

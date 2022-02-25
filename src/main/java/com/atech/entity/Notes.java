@@ -1,21 +1,21 @@
 package com.atech.entity;
 
-import lombok.Data;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
-@Data
-@Entity
+
+@Getter
+@Setter
+
 public class Notes {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String id;
 
-    @Lob
     private String notes;
 
-    @OneToOne
     private Recipe recipe;
 
 }

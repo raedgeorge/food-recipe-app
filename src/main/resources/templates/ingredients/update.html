@@ -28,7 +28,7 @@
 </head>
 <body>
 
-<form action="#" th:action="@{'/recipe/' + ${ingredient.recipeId} + '/ingredient'}"
+<form action="#" th:action="@{'/recipe/' + ${recipeId} + '/ingredient'}"
       th:object="${ingredient}"
       method="post">
 

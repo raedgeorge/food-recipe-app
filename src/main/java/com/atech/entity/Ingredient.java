@@ -1,29 +1,23 @@
 package com.atech.entity;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.UUID;
 
-@EqualsAndHashCode(exclude = {"recipe"})
 @Setter
 @Getter
-@Entity
 public class Ingredient {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+    private String id = UUID.randomUUID().toString();
     private String description;
     private BigDecimal amount;
 
-    @ManyToOne
     private Recipe recipe;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @DBRef
     private MeasureUnit measureUnit;
 
     public Ingredient() {
@@ -41,4 +35,5 @@ public class Ingredient {
         this.amount = amount;
         this.measureUnit = measureUnit;
     }
+
 }

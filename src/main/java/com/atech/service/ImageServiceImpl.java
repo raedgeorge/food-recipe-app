@@ -5,9 +5,9 @@ import com.atech.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
 import java.io.IOException;
 
 @Service
@@ -23,7 +23,7 @@ public class ImageServiceImpl implements ImageService{
 
     @Override
     @Transactional
-    public void saveImageFile(int recipeId, MultipartFile file) {
+    public void saveImageFile(String recipeId, MultipartFile file) {
 
         Recipe recipe = recipeRepository.findById(recipeId).get();
 
